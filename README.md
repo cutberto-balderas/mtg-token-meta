@@ -14,13 +14,13 @@ decklist dataset.
 
 ## Initial scope
 
-Version 0.1 focuses on a small, reproducible dataset:
+Version 0.2 focuses on a small, reproducible dataset:
 
-- **Initial decklist source:** Magic Online (MTGO) Challenge events.
+- **Initial decklist source:** Magic Online (MTGO) Challenge events and Leagues.
 - **Card and token metadata:** Scryfall API.
 - **Formats:** one format at a time.
-- **Event window:** a manually selected date range.
-- **Output:** a ranked CSV table of identifiable tokens.
+- **Event window:** a manually selected event.
+- **Output:** a JSON with the tokens in most played order.
 
 MTGO Challenge decklists are the first dataset used to validate the pipeline.
 Future versions may support competitive decklists from additional databases and
@@ -31,10 +31,10 @@ source URLs, and collection date.
 
 ## Methodology
 
-1. Select a competitive decklist source, format, and date range.
+1. Select a competitive decklist source, format, and date range from MTGO.
 2. Collect decklists from the selected dataset.
 3. Extract card names and quantities from each decklist.
-4. Retrieve card and token metadata.
+4. Retrieve card and token metadata from Scryfall API.
 5. Identify tokens that included cards can create.
 6. Aggregate results by token, format, and decklist source.
 7. Export the results for analysis and visualization.
@@ -53,17 +53,20 @@ It does **not** represent:
 
 ## Planned outputs
 
-- A CSV file containing token name, characteristics, source cards, format,
+- A JSON file containing token name, characteristics, source cards, format,
   decklist source, and decklist frequency.
+- A JSON file containing cards that produce tokens with each token and data from Scryfall
 - A summary table of the most frequently represented tokens per format.
 - A visual report or gallery using token metadata and image URLs.
 
-## Project status
+## Project Status
 
-Planning and repository setup.
+**Current Status:** In Active Development
 
-The first development milestone is to download and inspect one Magic Online
-Challenge decklist without performing token detection yet.
+We are currently building out the initial core scraping pipeline. The development milestones are structured as follows:
+
+*   **Milestone 1 (Done):** Integrate the Scryfall API using the Oracle Bulk Data file to isolate token-producing cards and map out exactly which tokens they generate, producing a JSON with this reference information.
+*   **Milestone 2 (Up Next):** Download, parse, and inspect raw Magic Online (MTGO) Challenge decklists to verify data structures before implementing token comparison with the generated data.
 
 ## Data sources
 
@@ -75,8 +78,13 @@ Data availability, event coverage, and card information may change over time.
 
 ## Attribution and disclaimer
 
-This is an unofficial, non-commercial fan project. It is not approved or
-endorsed by Wizards of the Coast.
+### Wizards of the Coast Policy Compliance
+This token-scraping utility and data analysis project is an unofficial fan tool permitted under the Wizards of the Coast Fan Content Policy. It is not approved, endorsed, sponsored, or affiliated with Wizards of the Coast LLC or Magic: The Gathering Online.
 
-Magic: The Gathering and related materials are property of Wizards of the Coast.
-Card and token data are obtained from Scryfall.
+Portions of the data and materials utilized within this application (including card names, mana symbols, token associations, and game mechanics) are the intellectual property of Wizards of the Coast. © Wizards of the Coast LLC, a subsidiary of Hasbro, Inc.
+
+### Scryfall API Usage Compliance
+Supplementary card metadata, image links, and token relation datasets are retrieved via the public Scryfall API. This software is completely independent, and its development is neither sponsored by nor affiliated with Scryfall. 
+
+### Data Sourcing
+Tournament decklists are aggregated from publicly accessible Magic Online tournament listings.
